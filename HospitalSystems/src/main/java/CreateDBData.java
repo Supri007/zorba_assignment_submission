@@ -29,6 +29,7 @@ public class CreateDBData {
             hospitalBedInfo1.hospital_id = hospital.hospitalId;
             hospitalBedInfo2.hospital_id = hospital.hospitalId;
             Patient patient = new Patient().getInputFromUser(sc);
+            //Add patientId to Hospital table
             hospital.patientId = patient.patientId;
             sc.close();
 
@@ -56,14 +57,14 @@ public class CreateDBData {
             stat.execute(dbQuery1);
             stat.execute(dbQuery2);
             stat.execute(dbQuery3);
-            //stat.execute(fkHospitalBedInfo);
-            //stat.execute(fkHospital);
+            stat.execute(fkHospitalBedInfo);
+            stat.execute(fkHospital);
             System.out.println("Tables created in DB");
 
+            sb.append(patient.insertDataToDB(con, patient)).append("\n");
+            sb.append(hospital.insertDataToDB(con, hospital)).append("\n");
             sb.append(hospitalBedInfo1.insertDataToDB(con, hospitalBedInfo1)).append("\n");
             sb.append(hospitalBedInfo2.insertDataToDB(con, hospitalBedInfo2)).append("\n");
-            sb.append(hospital.insertDataToDB(con, hospital)).append("\n");
-            sb.append(patient.insertDataToDB(con, patient)).append("\n");
             System.out.println(sb.toString());
 
             //get data from DB
